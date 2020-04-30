@@ -1,0 +1,42 @@
+﻿@model List<ProductModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Available Products:</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lp</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Details</th>
+            <th>Add to cart</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Lp</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Details</th>
+            <th>Add to cart</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @{int lp = 0; }
+        @foreach (var row in Model)
+        {
+            lp++;
+            <tr style="background-color: white">
+                <td> @lp                                            </td>
+                <td> @row.Name                                      </td>
+                <td> @row.Category                                  </td>
+                <td> @row.Price                                     </td>
+                <td> <a href="~/Product/Details/@row.Id">Details</a></td>
+                <td> <a href="~/Product/AddToCart/@row.Id">Add</a>  </td>
+            </tr>
+        }
+    </tbody>
+</table>

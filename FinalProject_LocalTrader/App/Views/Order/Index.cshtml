@@ -1,0 +1,40 @@
+﻿@model List<OrderModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<a class="nav-link text-dark" asp-controller="Order" asp-action="Add">Add New Order</a>
+<br />
+<h1>My Orders:</h1>
+<p>todo: details of order</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lp</th>
+            <th>Status</th>
+            <th>OrderStart</th>
+            <th>OrderEnd</th>
+            <th>Show order</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int lp = 0; }
+        @foreach (var row in Model)
+        {
+            lp++;
+            <tr style="background-color: white">
+                <td> @lp                                                    </td>
+                <td> @row.Status                                            </td>
+                <td> @row.OrderStart                                        </td>
+                <td> @row.OrderEnd                                          </td>
+                <td> <a href="~/Order/ShowOrder/@row.Id">Show</a>    </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!--
+        public int Id { get; set; }
+        public string Status { get; set; }
+        public ConsumerModel Consumer { get; set; }
+        public DateTime OrderTime { get; set; }
+        public ProductOrderModel ProductOrder { get; set; }
+-->

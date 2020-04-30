@@ -1,0 +1,37 @@
+﻿@model ProductOrderModel
+@inject App.Services.ProductService productService;
+@{
+    ViewData["Title"] = "AddProductToOrder";
+}
+
+<h1>Add product to order:</h1>
+
+<form asp-action="AddProductToOrder" method="post">
+    <input type="hidden" asp-for="OrderID" value="@Model.OrderID" />
+    <div>
+        <label>Choose product:</label>
+        <p>todo: show in format -> "Category|ProducerName|ProductName"</p>
+        <select asp-for="ProductID">
+            @{
+                foreach (ProductModel productM in productService.GetAll())
+                {
+                    <option value="@productM.Id">@productM.Name</option>
+                }
+            }
+        </select>
+        <label>Choose quantity:</label>
+        <input type="number" asp-for="@Model.ProductQuantity"/>
+    </div>
+    <button>Add product to order</button>
+</form>
+<br />
+<a asp-controller="Order" asp-action="Index">Back to orders</a>
+<!--
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public CategoryModel Category { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public ProductOrderModel ProductOrder { get; set; }
+        public ProducerModel Producer { get; set; }
+-->

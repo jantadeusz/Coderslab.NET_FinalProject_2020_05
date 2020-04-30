@@ -1,0 +1,10 @@
+﻿@model ProductModel
+@{
+    ViewData["Title"] = "Remove";
+}
+
+<h1>Potwierdzenie usunięcia produktu</h1>
+<p>Czy chcesz usunąć produkt nr: @Model.Id, Nazwa: @Model.Name</p>
+<a href="~/Product/RemoveConfirmation/@Model.Id">Tak</a>
+<br />
+<a href="~/Product/Index">Nie</a>
