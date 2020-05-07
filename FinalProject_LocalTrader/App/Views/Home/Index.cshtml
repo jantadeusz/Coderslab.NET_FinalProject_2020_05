@@ -1,22 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
 <h1>Witaj w sklepie z produktami lokalnymi</h1>
-@if (!User.Identity.IsAuthenticated)
-{
-    <div>Użytkownik Niezalogowany.</div>
-    <br />
-    <a asp-controller="Account" asp-action="Register">Rejestracja</a>
-    <br />
-    <a asp-controller="Account" asp-action="Login">Zaloguj</a>
-    <br />
-}
-else
+@if (User.Identity.IsAuthenticated)
 {
     <div>
-        <p>            Zalogowany użytkownik: @User.Identity.Name        </p>
-        <br />
         @{
             if (User.IsInRole("AdministratorIT"))
             {
@@ -31,8 +19,6 @@ else
             { <p>Brak roli w systemie</p> }
         }
     </div>
-    <a asp-controller="Account" asp-action="LogOut">Wyloguj użytkownika [@User.Identity.Name]</a>
-    <br />
     <a asp-controller="Role" asp-action="Index">Zarządzaj rolami użytkowników w systemie</a>
     <br />
 }
@@ -40,7 +26,6 @@ else
 <div>
     <h3>ToDo:</h3>
     <p> =========================== </p>
-    <p> Dorób logowanie</p>
     <p></p>
     <p></p>
     <p></p>
@@ -63,6 +48,9 @@ else
     <p>lista produktow i obrazkow bez mozlwosci zamawiania (paginacja i kategorie)    </p>
     <p>link MyOrders z lista zamowien closed true/false - > EditOrder -> dodawanie produktow do zamowienia    </p>
     <p>przycisk finalise order    </p>
+    <p>          // todo: dodac pole image zeby wyswietlac w tabeli  </p>
+    <p>    </p>
+    <p>    </p>
     <p>    </p>
     <p>    </p>
 

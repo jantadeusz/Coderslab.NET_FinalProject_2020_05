@@ -17,27 +17,42 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
+                        <li class="btn btn-light">
                             <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">Products</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Order" asp-action="Index">MyOrders</a>
+                        <li class="btn btn-light">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">About us</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Product" asp-action="MyProducts">MyProducts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Order" asp-action="MySale">MySale</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="AdminMenu">AdminMenu</a>
-                        </li>
-                        <li class="nav-item">
+                        <li class="btn btn-light">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="btn btn-light">
+                                <a class="nav-link text-dark" asp-controller="Order" asp-action="Index">MyOrders</a>
+                            </li>
+                            <li class="btn btn-light">
+                                <a class="nav-link text-dark" asp-controller="Product" asp-action="MyProduction">MyProduction</a>
+                            </li>
+                            <li class="btn btn-light">
+                                <a class="nav-link text-dark" asp-controller="Order" asp-action="MySale">MySale</a>
+                            </li>
+                            <li class="btn btn-light">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="AdminMenu">AdminMenu</a>
+                            </li>
+                            <li class="btn btn-warning">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="LogOut">Wyloguj</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="btn btn-warning">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Rejestracja</a>
+                            </li>
+                            <li class="btn btn-success">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Zaloguj</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

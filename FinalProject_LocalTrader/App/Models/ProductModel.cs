@@ -17,8 +17,8 @@ namespace App.Models
         public string Description { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
-        // todo: dodac pole image zeby wyswietlac w tabeli
         public ICollection<ProductOrderModel> ProductOrder { get; set; }
         public ProducerModel Producer { get; set; }
+        public ImageModel Image { get; set; }
     }
 }

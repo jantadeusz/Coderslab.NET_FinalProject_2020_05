@@ -69,3 +69,10 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+a.buttonTJ {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    text-decoration: none;
+    color: initial;
+}

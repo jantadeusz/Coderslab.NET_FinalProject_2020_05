@@ -44,12 +44,13 @@ namespace App
             else { app.UseExceptionHandler("/Home/Error"); }
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}/{id1?}");
+                    pattern: "{controller=Product}/{action=Index}/{id?}/{id1?}");
             });
         }
     }

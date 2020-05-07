@@ -1,9 +1,8 @@
 ﻿@model List<ProductModel>
 @{
-    ViewData["Title"] = "MyProducts";
+    ViewData["Title"] = "MyProduction";
 }
-<a class="nav-link text-dark" asp-controller="Product" asp-action="Add">Add products</a>
-<a class="nav-link" asp-controller="Product" asp-action="Add">Add products</a>
+<a class="btn btn-light" asp-controller="Product" asp-action="Add">Add product</a>
 <br />
 <p>todo: remove product</p>
 <h1>MyProducts:</h1>
@@ -19,22 +18,23 @@
             <th>Active orders</th>
             <th>Show orders</th>
             <th>Remove product</th>
+            <th>Add image</th>
         </tr>
     </thead>
     <tbody>
         @{int lp = 0; }
-        @foreach (var row in Model)
+        @foreach (ProductModel product in Model)
         {
             lp++;
             <tr style="background-color: white">
                 <td> @lp                                            </td>
-                <td> @row.Name                                      </td>
-                <td> @row.Category                                  </td>
-                <td> <a href="~/Product/Details/@row.Id">Details</a></td>
-                <td> @row.Price                                     </td>
+                <td> @product.Name                                      </td>
+                <td> @product.Category                                  </td>
+                <td> <a href="~/Product/Details/@product.Id">Details</a></td>
+                <td> @product.Price                                     </td>
                 @{
                     decimal totalSell = 0;
-                    foreach (ProductOrderModel pom in row.ProductOrder)
+                    foreach (ProductOrderModel pom in product.ProductOrder)
                     {
                         totalSell += pom.Product.Price * pom.ProductQuantity;
                     }
@@ -42,14 +42,15 @@
                 <td> @totalSell                                     </td>
                 @{
                     int activeOrders = 0;
-                    foreach (ProductOrderModel pom in row.ProductOrder)
+                    foreach (ProductOrderModel pom in product.ProductOrder)
                     {
                         if (pom.Order.Status == "Active") { activeOrders++; }
                     }
                 }
                 <td> @activeOrders                                   </td>
-                <td> <a href="~/Product/ShowOrders/@row.Id">Show</a> </td>
-                <td> <a href="~/Product/Remove/@row.Id">Remove</a>   </td>
+                <td> <a href="~/Product/ShowOrders/@product.Id">Show</a> </td>
+                <td> <a href="~/Product/Remove/@product.Id">Remove</a>   </td>
+                <td> <a href="~/Image/Add/@product.Id">Add image</a> </td>
             </tr>
         }
     </tbody>

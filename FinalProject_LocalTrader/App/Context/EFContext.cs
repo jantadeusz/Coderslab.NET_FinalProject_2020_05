@@ -20,6 +20,7 @@ namespace App.Context
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<OrderModel> Orders { get; set; }
         public DbSet<ProductOrderModel> ProductsOrders { get; set; }
+        public DbSet<ImageModel> ProductImage { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,12 @@ namespace App.Context
              */
 
             modelBuilder.Entity<ProductModel>();
+            /*
+                .HasOne(x=>x.ProductImage)
+                .WithOne(x=>x.Product)
+                .HasForeignKey<ImageModel>(x=>x.ProductId);
+             */
+
             modelBuilder.Entity<OrderModel>();
             base.OnModelCreating(modelBuilder);
         }

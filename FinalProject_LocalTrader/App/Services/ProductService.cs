@@ -19,6 +19,12 @@ namespace App.Services
             try
             {
                 context.Products.Add(product);
+                /*
+                if(product.ProductImage != null)
+                {
+                    context.ProductImage.Add(product.ProductImage);
+                }
+                 */
                 context.SaveChanges();
             }
             catch (Exception ex)

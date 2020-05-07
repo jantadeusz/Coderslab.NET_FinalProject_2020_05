@@ -21,5 +21,13 @@
         <span asp-validation-for="Price" class="text-danger"></span>
         <p class="alert-danger"> @Html.ValidationMessageFor(model => model.Price) </p>
     </div>
+    <!--
+    <div>
+        <label>Image:</label>
+        <input asp-for="ProductImageTest" type="file" name="Image" />
+        <span asp-validation-for="ProductImageTest" class="text-danger"></span>
+        <p class="alert-danger"> Html.ValidationMessageFor(model => model.ProductImageTest) </p>
+    </div>
+    -->
     <button>Add</button>
 </form>

@@ -4,14 +4,16 @@ using App.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace App.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20200505213101_AddProductImage")]
+    partial class AddProductImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,27 +94,6 @@ namespace App.Migrations
                     b.ToTable("ConsumerModel");
                 });
 
-            modelBuilder.Entity("App.Models.ImageModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("ProductImage");
-                });
-
             modelBuilder.Entity("App.Models.OrderModel", b =>
                 {
                     b.Property<int>("Id")
@@ -158,6 +139,30 @@ namespace App.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("ProducerModel");
+                });
+
+            modelBuilder.Entity("App.Models.ProductImageModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("ProductImageModel");
                 });
 
             modelBuilder.Entity("App.Models.ProductModel", b =>
@@ -423,15 +428,6 @@ namespace App.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("App.Models.ImageModel", b =>
-                {
-                    b.HasOne("App.Models.ProductModel", "Product")
-                        .WithOne("Image")
-                        .HasForeignKey("App.Models.ImageModel", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("App.Models.OrderModel", b =>
                 {
                     b.HasOne("App.Models.ConsumerModel", "Consumer")
@@ -444,6 +440,15 @@ namespace App.Migrations
                     b.HasOne("App.Models.AddressModel", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
+                });
+
+            modelBuilder.Entity("App.Models.ProductImageModel", b =>
+                {
+                    b.HasOne("App.Models.ProductModel", "Product")
+                        .WithOne("ProductImage")
+                        .HasForeignKey("App.Models.ProductImageModel", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("App.Models.ProductModel", b =>

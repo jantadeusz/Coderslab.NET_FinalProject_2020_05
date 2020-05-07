@@ -23,7 +23,7 @@ namespace App.Controllers
             var products = Service.GetAll();
             return View(products);
         }
-        public IActionResult MyProducts()
+        public IActionResult MyProduction()
         {           
             var products = Service.GetAll();
             return View(products);
