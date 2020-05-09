@@ -187,11 +187,11 @@ F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProje
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Product\Edit.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Product\Remove.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Home\AdminMenu.cshtml.g.cs
-F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\Add.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\Index.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\AddProductToOrder.cshtml.g.cs
-F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\ShowOrder.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Account\LogIn.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Product\MyProduction.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Image\Add.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\Remove.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\Edit.cshtml.g.cs

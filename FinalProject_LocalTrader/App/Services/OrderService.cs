@@ -29,6 +29,7 @@ namespace App.Services
             }
             return orders;
         }
+
         public OrderModel GetOne(int id)
         {
             OrderModel order;
@@ -52,10 +53,44 @@ namespace App.Services
         public OrderModel FinishOrder(int id)
         {
             OrderModel order = GetOne(id);
-            order.Status = "Active";
+            order.Status = "InDelivery";
+            order.OrderEnd = DateTime.Now;
             context.Orders.Update(order);
             context.SaveChanges();
             return order;
+        }
+
+        public void AddProductToOrder(ProductOrderModel productOrder)
+        {
+            productOrder.Id = 0; // trzeba wyzerowac zeby dzialalo, bo wali bledem inaczej
+            ProductOrderModel prodOrdFromDB = null;
+            try
+            {
+                prodOrdFromDB = context.ProductsOrders
+                    .Where(x => x.ProductID == productOrder.ProductID)
+                    .Where(x => x.OrderID == productOrder.OrderID).First();
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            if (prodOrdFromDB == null)
+            {
+                ProductService ps = new ProductService(context);
+                productOrder.Product = ps.GetOne(productOrder.ProductID);
+                productOrder.Order = GetOne(productOrder.OrderID);
+                context.ProductsOrders.Add(productOrder);
+            }
+            else
+            {
+                prodOrdFromDB.ProductQuantity += productOrder.ProductQuantity;
+                context.ProductsOrders.Update(prodOrdFromDB);
+            }
+            context.SaveChanges();
+        }
+
+        public void Remove(int id)
+        {
+            var order = context.Orders.Where(x => x.Id == id).First();
+            context.Orders.Remove(order);
+            context.SaveChanges();
         }
     }
 }

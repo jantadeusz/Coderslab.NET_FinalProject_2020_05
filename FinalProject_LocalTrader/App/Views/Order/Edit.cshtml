@@ -4,11 +4,14 @@
 }
 
 <h1>ShowOrder @Model.Id started at @Model.OrderStart. Products:</h1>
-<br />
-<a href="~/Order/AddProductToOrder/@Model.Id">Add product</a>
-<br />
-<a href="~/Order/FinishOrder/@Model.Id">Finish this order</a>
-<br />
+@if (Model.Status == "Open")
+{
+    <br />
+    <a class="btn btn-light" href="~/Order/AddProductToOrder/@Model.Id">
+        Add product or change quantity
+    </a>
+    <br />
+}
 <table class="table">
     <thead>
         <tr>
@@ -16,24 +19,38 @@
             <th>Name</th>
             <th>Price</th>
             <th>ProductQuantity</th>
+            <th>Remove</th>
         </tr>
     </thead>
     <tbody>
         @{int lp = 0; }
+        @{ decimal amount = 0; }
         @foreach (ProductOrderModel pom in Model.ProductOrder)
         {
             lp++;
+            amount += @pom.Product.Price * @pom.ProductQuantity;
             <tr style="background-color: white">
                 <td> @lp                    </td>
                 <td> @pom.Product.Name      </td>
                 <td> @pom.Product.Price     </td>
                 <td> @pom.ProductQuantity   </td>
-                <td> <a href="~/Order/RemoveProductFromOrder/@Model.Id/@pom.Id">Remove</a> </td>
+                @{
+                    if (Model.Status == "Open")
+                    {
+                        <td> <a href="~/Order/RemoveProductFromOrder/@Model.Id/@pom.Id">Remove</a> </td>
+                    }
+                }
             </tr>
         }
     </tbody>
 </table>
-<p>todo: total amount </p>
-<p>todo: tylko ilosci wieksze od 0 </p>
-<p>todo: increase quantity when add same product </p>
-<p>todo: jezeli zamowienie jest Active to juz nie mozna go zamknac ponownie - niewidoczny link </p>
+<div>
+    <h3>To pay: @amount</h3>
+</div>
+@if (Model.Status == "Open")
+{
+    <br />
+    <a class="btn btn-light" href="~/Order/FinishOrder/@Model.Id">
+        Finish this order and pass to delivery
+    </a>
+}

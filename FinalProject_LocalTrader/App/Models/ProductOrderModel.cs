@@ -14,9 +14,9 @@ namespace App.Models
         public int ProductID { get; set; }
         [ForeignKey("ProductID")]
         public ProductModel Product { get; set; }
-        public int ProductQuantity { get; set; }
         public int OrderID { get; set; }
         [ForeignKey("OrderID")]
         public OrderModel Order { get; set; }
+        public int ProductQuantity { get; set; }
     }
 }

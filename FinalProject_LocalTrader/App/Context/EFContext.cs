@@ -20,7 +20,7 @@ namespace App.Context
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<OrderModel> Orders { get; set; }
         public DbSet<ProductOrderModel> ProductsOrders { get; set; }
-        public DbSet<ImageModel> ProductImage { get; set; }
+        public DbSet<ImageModel> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -5,7 +5,7 @@
 }
 
 <h1>Add product to order:</h1>
-
+<h2 class="text-danger">@ViewData["Error"]</h2>
 <form asp-action="AddProductToOrder" method="post">
     <input type="hidden" asp-for="OrderID" value="@Model.OrderID" />
     <div>
@@ -25,13 +25,4 @@
     <button>Add product to order</button>
 </form>
 <br />
-<a asp-controller="Order" asp-action="Index">Back to orders</a>
-<!--
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public CategoryModel Category { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public ProductOrderModel ProductOrder { get; set; }
-        public ProducerModel Producer { get; set; }
--->
+<a asp-controller="Order" asp-action="Edit" asp-route-id="@Model.OrderID">Back to order details</a>

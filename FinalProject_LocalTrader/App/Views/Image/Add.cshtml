@@ -6,7 +6,6 @@
     <!--
     odel App.ViewModels.ImageViewModel
         <form asp-controller="Image" asp-action="Add" method="post">
-            <input type="hidden" asp-for="ProductId" value="ViewData["productId"]" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label"></label>
@@ -20,7 +19,9 @@
         -->
     @using (Html.BeginForm("Add", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        <input type="hidden" name="ProductId" value="@ViewData["productId"]" />
         <input type="file" name="file" />
+        <br />
         <input type="submit" name="Submit" id="Submit" value="Upload" />
     }
 </div>

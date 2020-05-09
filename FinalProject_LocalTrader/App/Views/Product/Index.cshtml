@@ -12,31 +12,30 @@
             <th>Price</th>
             <th>Details</th>
             <th>Add to cart</th>
+            <th>Image1</th>
         </tr>
     </thead>
-    <tfoot>
-        <tr>
-            <th>Lp</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Details</th>
-            <th>Add to cart</th>
-        </tr>
-    </tfoot>
     <tbody>
         @{int lp = 0; }
-        @foreach (var row in Model)
+        @foreach (var product in Model)
         {
             lp++;
-            <tr style="background-color: white">
-                <td> @lp                                            </td>
-                <td> @row.Name                                      </td>
-                <td> @row.Category                                  </td>
-                <td> @row.Price                                     </td>
-                <td> <a href="~/Product/Details/@row.Id">Details</a></td>
-                <td> <a href="~/Product/AddToCart/@row.Id">Add</a>  </td>
-            </tr>
+        <tr style="background-color: white">
+            <td> @lp                                            </td>
+            <td> @product.Name                                      </td>
+            <td> @product.Category                                  </td>
+            <td> @product.Price                                     </td>
+            <td> <a href="~/Product/Details/@product.Id">Details</a></td>
+            <td> <a href="~/Product/AddToCart/@product.Id">Add</a>  </td>
+            <td>
+                @{
+                    if (@product.Image != null)
+                    {
+                        <img width="100" src="@product.Image.FilePath" />
+                    }
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

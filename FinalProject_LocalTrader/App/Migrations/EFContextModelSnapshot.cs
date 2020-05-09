@@ -99,7 +99,7 @@ namespace App.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
@@ -110,7 +110,7 @@ namespace App.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("ProductImage");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("App.Models.OrderModel", b =>

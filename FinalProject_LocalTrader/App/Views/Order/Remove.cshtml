@@ -1,0 +1,10 @@
+﻿@model OrderModel
+@{
+    ViewData["Title"] = "Remove";
+}
+
+<h1>Deleting Order nr: @Model.Id. Are you sure?</h1>
+<a class="btn btn-light" href="~/Order/RemoveConfirm/@Model.Id">Yes</a>
+<br />
+<a class="btn btn-light" href="~/Order/Index">No</a>
+

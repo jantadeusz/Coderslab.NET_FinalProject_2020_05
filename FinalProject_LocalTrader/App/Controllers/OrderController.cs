@@ -28,24 +28,16 @@ namespace App.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Add(OrderModel order)
-        {
-            if (ModelState.IsValid)
-            {
-                order.Status = "Open";
-                order.OrderStart = DateTime.Now;
-                Context.Orders.Add(order);
-                Context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(order);
+            OrderModel order = new OrderModel();
+            order.Status = "Open";
+            order.OrderStart = DateTime.Now;
+            Context.Orders.Add(order);
+            Context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult ShowOrder(int id)
+        public IActionResult Edit(int id)
         {
             var order = Service.GetOne(id);
             return View(order);
@@ -61,19 +53,15 @@ namespace App.Controllers
             return View(productOrderModel);
         }
         [HttpPost]
-        public IActionResult AddProductToOrder(ProductOrderModel productOrder)
+        public IActionResult AddProductToOrder(ProductOrderModel prodOrdFromForm)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && prodOrdFromForm.ProductQuantity > 0)
             {
-                productOrder.Id = 0;
-                ProductService ps = new ProductService(Context);
-                productOrder.Product = ps.GetOne(productOrder.ProductID);
-                productOrder.Order = Service.GetOne(productOrder.OrderID);
-                Context.ProductsOrders.Add(productOrder);
-                Context.SaveChanges();
-                return RedirectToAction("ShowOrder", new { id = productOrder.OrderID });
+                Service.AddProductToOrder(prodOrdFromForm);
+                return RedirectToAction("Edit", new { id = prodOrdFromForm.OrderID });
             }
-            return View(productOrder);
+            else { ViewData["Error"] = "Błędy w formularzu"; }
+            return View(prodOrdFromForm);
         }
 
         [HttpGet]
@@ -84,13 +72,26 @@ namespace App.Controllers
             var productOrder = Context.ProductsOrders.FirstOrDefault(x => x.Id == id1);
             Context.ProductsOrders.Remove(productOrder);
             Context.SaveChanges();
-            return RedirectToAction("ShowOrder", new { id });
+            return RedirectToAction("Edit", new { id });
         }
-        
+
         [HttpGet]
         public IActionResult FinishOrder(int id)
         {
             Service.FinishOrder(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Remove(int id)
+        {
+            var order = Service.GetOne(id);
+            return View(order);
+        }
+        [HttpGet]
+        public IActionResult RemoveConfirm(int id)
+        {
+            Service.Remove(id);
             return RedirectToAction("Index");
         }
     }

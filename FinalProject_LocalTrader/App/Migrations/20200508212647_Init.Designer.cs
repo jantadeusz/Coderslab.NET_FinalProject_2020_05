@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20200505213101_AddProductImage")]
-    partial class AddProductImage
+    [Migration("20200508212647_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,6 +94,27 @@ namespace App.Migrations
                     b.ToTable("ConsumerModel");
                 });
 
+            modelBuilder.Entity("App.Models.ImageModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("App.Models.OrderModel", b =>
                 {
                     b.Property<int>("Id")
@@ -139,30 +160,6 @@ namespace App.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("ProducerModel");
-                });
-
-            modelBuilder.Entity("App.Models.ProductImageModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("ProductImageModel");
                 });
 
             modelBuilder.Entity("App.Models.ProductModel", b =>
@@ -428,6 +425,15 @@ namespace App.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("App.Models.ImageModel", b =>
+                {
+                    b.HasOne("App.Models.ProductModel", "Product")
+                        .WithOne("Image")
+                        .HasForeignKey("App.Models.ImageModel", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("App.Models.OrderModel", b =>
                 {
                     b.HasOne("App.Models.ConsumerModel", "Consumer")
@@ -440,15 +446,6 @@ namespace App.Migrations
                     b.HasOne("App.Models.AddressModel", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
-                });
-
-            modelBuilder.Entity("App.Models.ProductImageModel", b =>
-                {
-                    b.HasOne("App.Models.ProductModel", "Product")
-                        .WithOne("ProductImage")
-                        .HasForeignKey("App.Models.ProductImageModel", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("App.Models.ProductModel", b =>

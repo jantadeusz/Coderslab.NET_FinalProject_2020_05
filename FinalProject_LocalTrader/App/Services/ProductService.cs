@@ -71,8 +71,8 @@ namespace App.Services
             {
                 product = context.Products
                    .Where(x => x.Id == id)
-                   .Include(x => x.ProductOrder)
-                   .ThenInclude(x => x.Order)
+                   .Include(x => x.ProductOrder).ThenInclude(x => x.Order)
+                   .Include(x => x.Image)
                    .First();
                 return product;
             }
@@ -89,8 +89,8 @@ namespace App.Services
             try
             {
                 products = context.Products
-                    .Include(x => x.ProductOrder)
-                    .ThenInclude(x => x.Order)
+                    .Include(x => x.ProductOrder).ThenInclude(x => x.Order)
+                    .Include(x => x.Image)
                     .ToList();
             }
             catch (Exception ex)
