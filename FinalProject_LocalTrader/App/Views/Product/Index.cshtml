@@ -11,8 +11,7 @@
             <th>Category</th>
             <th>Price</th>
             <th>Details</th>
-            <th>Add to cart</th>
-            <th>Image1</th>
+            <th>Image</th>
         </tr>
     </thead>
     <tbody>
@@ -20,22 +19,26 @@
         @foreach (var product in Model)
         {
             lp++;
-        <tr style="background-color: white">
-            <td> @lp                                            </td>
-            <td> @product.Name                                      </td>
-            <td> @product.Category                                  </td>
-            <td> @product.Price                                     </td>
-            <td> <a href="~/Product/Details/@product.Id">Details</a></td>
-            <td> <a href="~/Product/AddToCart/@product.Id">Add</a>  </td>
-            <td>
-                @{
-                    if (@product.Image != null)
+            <tr style="background-color: white">
+                <td> @lp                                            </td>
+                <td> @product.Name                                      </td>
+                <td>
+                    @if (@product.Category != null)
                     {
-                        <img width="100" src="@product.Image.FilePath" />
+                        @product.Category.Name
                     }
-                }
-            </td>
-        </tr>
+                </td>
+                <td> @product.Price                                     </td>
+                <td> <a href="~/Product/Details/@product.Id">Details</a></td>
+                <td>
+                    @{
+                        if (@product.Image != null)
+                        {
+                            <img  height="100" src="@product.Image.FilePath" />
+                        }
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

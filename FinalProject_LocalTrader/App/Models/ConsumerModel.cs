@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace App.Models
 {
-    public class ConsumerModel
+    public class ConsumerModel:IdentityUser
     {
-        public int Id { get; set; }
-        [Required]
-        public string Nick { get; set; }
-        [Required]
-        public string Email { get; set; }
+        //zawodowypolak
+        //https://stackoverflow.com/questions/40532987/how-to-extend-identityuser-with-custom-property/40579369
         [Required]
         public DateTime BirthDate { get; set; }
         public AddressModel Address { get; set; }

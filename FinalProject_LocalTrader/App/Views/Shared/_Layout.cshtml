@@ -35,22 +35,19 @@
                                 <a class="nav-link text-dark" asp-controller="Product" asp-action="MyProduction">MyProduction</a>
                             </li>
                             <li class="btn btn-light">
-                                <a class="nav-link text-dark" asp-controller="Order" asp-action="MySale">MySale</a>
-                            </li>
-                            <li class="btn btn-light">
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="AdminMenu">AdminMenu</a>
                             </li>
                             <li class="btn btn-warning">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="LogOut">Wyloguj</a>
+                                <a class="nav-link text-dark" asp-controller="Consumer" asp-action="LogOut">Wyloguj się @User.Identity.Name</a>
                             </li>
                         }
                         else
                         {
                             <li class="btn btn-warning">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Rejestracja</a>
+                                <a class="nav-link text-dark" asp-controller="Consumer" asp-action="Register">Rejestracja</a>
                             </li>
                             <li class="btn btn-success">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Zaloguj</a>
+                                <a class="nav-link text-dark" asp-controller="Consumer" asp-action="Login">Zaloguj</a>
                             </li>
                         }
                     </ul>

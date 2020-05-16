@@ -1,36 +1,39 @@
 ﻿using App.Context;
 using App.Models;
+using App.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace App.Services
 {
     public class ProductService
     {
-        private readonly EFContext context;
+        private readonly EFContext Context;
         public ProductService(EFContext _context)
         {
-            context = _context;
+            Context = _context;
         }
-        public void Add(ProductModel product)
+        public ProductModel Add(ProductViewModel productView)
         {
+            ProductModel product = null;
             try
             {
-                context.Products.Add(product);
-                /*
-                if(product.ProductImage != null)
+                product = new ProductModel()
                 {
-                    context.ProductImage.Add(product.ProductImage);
-                }
-                 */
-                context.SaveChanges();
+                    Name = productView.ProductName,
+                    Price = productView.Price,
+                    Description = productView.Description,
+                    Category = Context.Categories.Where(x => x.Id == productView.CategoryId).First(),
+                };
+                Context.Products.Add(product);
+                Context.SaveChanges();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            catch (Exception ex) { Console.WriteLine(ex.Message + "\n" + ex.InnerException); }
+            return product;
         }
         public void Update(ProductModel productFromForm)
         {
@@ -41,8 +44,8 @@ namespace App.Services
                 product.Name = productFromForm.Name;
                 product.Description = productFromForm.Description;
                 product.Price = productFromForm.Price;
-                context.Products.Update(product);
-                context.SaveChanges();
+                Context.Products.Update(product);
+                Context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -54,9 +57,9 @@ namespace App.Services
         {
             try
             {
-                var actor = context.Products.SingleOrDefault(x => x.Id == id);
-                context.Products.Remove(actor);
-                context.SaveChanges();
+                var actor = Context.Products.SingleOrDefault(x => x.Id == id);
+                Context.Products.Remove(actor);
+                Context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -69,8 +72,9 @@ namespace App.Services
             ProductModel product;
             try
             {
-                product = context.Products
+                product = Context.Products
                    .Where(x => x.Id == id)
+                   .Include(x => x.Category)
                    .Include(x => x.ProductOrder).ThenInclude(x => x.Order)
                    .Include(x => x.Image)
                    .First();
@@ -88,7 +92,8 @@ namespace App.Services
             List<ProductModel> products = new List<ProductModel>();
             try
             {
-                products = context.Products
+                products = Context.Products
+                    .Include(x => x.Category)
                     .Include(x => x.ProductOrder).ThenInclude(x => x.Order)
                     .Include(x => x.Image)
                     .ToList();

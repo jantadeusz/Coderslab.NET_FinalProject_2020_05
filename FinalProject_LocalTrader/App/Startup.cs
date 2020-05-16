@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using App.Context;
+using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,9 +33,10 @@ namespace App
                 builder.UseSqlServer(Configuration["ConnectionString"]);
             });
             services.AddMvc();
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<EFContext>();
-            services.AddScoped<ProductService>();
+            services.AddIdentity<ConsumerModel, IdentityRole>().AddEntityFrameworkStores<EFContext>();
+            services.AddScoped<CategoryService>();
             services.AddScoped<OrderService>();
+            services.AddScoped<ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +57,46 @@ namespace App
         }
     }
 }
+/*
+ Proponowany temat
+Sklep internetowy z produktami
+
+Opis projetku
+Typowy projekt e-commerce.
+Entity framework do granic
+g³ównie backend i rozbudowane relacje
+Front minimalny: bootstrap i JS (min, minimorum).
+
+Spis funkcjonalnoœci
+"1. Model: 
+"
+- produkty
+- klienci (IdentityUsers)
+- zamówienia (+ pola: wys³ane)
+- p³atnoœci (+ kolumna: srodki wplynely)
+- Magazyn z produktami (klucz obcy: idProduktu, iloœæ, adres produktu w magazynie)
+- Wiadomoœci (od, do, powiadomienia mailowe)
+...
+
+2. Edycja modelu:
+- dodawanie + edycja + usuwanie wierszy w modelu za pomoc¹ formularzy
+- form kontakt: wybór z listy tematu korespondencji (np. brak produktu, czy wyslane itp)
+...
+
+"3. Przestrzeñ sklepu dostêpna bez logowania:
+"
+- wyswietlanie produktow na liscie ze zdjeciami miniaturkami
+- ilosc towarow na stronie (10,20,50)
+- wybor kategorii/podkategorii produktow do wyswietlania
+- miejsce na reklamy
+...
+
+"4. Przestrzeñ klienta dostêpna po zalogowaniu (rola Client):
+"
+- mozliwosc zlozenia zamowienia
+- historia oplaconych zamowieñ
+- lista nieoplaconych zamowien
+     */
 /*
 Uwagi moje bie¿¹ce do aplikacji:
 

@@ -1,5 +1,6 @@
 ﻿using App.Context;
 using App.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,17 @@ namespace App.Services
         {
             context = _context;
         }
-        public List<OrderModel> GetAll()
+        public List<OrderModel> GetAll(string consumerId)
         {
+
             List<OrderModel> orders = new List<OrderModel>();
             try
             {
-                orders = context.Orders.ToList();
+                orders = context.Orders
+                    .Where(x => x.Consumer.Id == consumerId)
+                    .Include(x => x.Consumer)
+                    .Include(x => x.ProductOrder).ThenInclude(x => x.Product)
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -30,15 +36,15 @@ namespace App.Services
             return orders;
         }
 
-        public OrderModel GetOne(int id)
+        public OrderModel GetOne(int orderId)
         {
             OrderModel order;
             try
             {
                 order = context.Orders
-                   .Where(x => x.Id == id)
-                   .Include(x => x.ProductOrder)
-                   .ThenInclude(x => x.Product)
+                   .Where(x => x.Id == orderId)
+                   .Include(x=> x.Consumer)
+                   .Include(x => x.ProductOrder).ThenInclude(x => x.Product)
                    .First();
                 return order;
             }

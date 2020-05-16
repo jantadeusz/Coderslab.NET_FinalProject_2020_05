@@ -9,7 +9,8 @@ namespace App.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        // todo: polaczenie wiele do wiele miedzy kategoriami i produktami
-        // tak jak tagi w bookmarksgoogle
+        public ICollection<ProductModel> Products { get; set; }
+        // todo: polaczenie jeden do wiele miedzy kategoriami i produktami
+        // w przyszłości: tak jak tagi w bookmarksgoogle
     }
 }

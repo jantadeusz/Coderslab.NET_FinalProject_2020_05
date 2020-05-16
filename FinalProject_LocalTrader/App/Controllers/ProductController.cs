@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using App.Context;
 using App.Models;
 using App.Services;
+using App.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
@@ -24,7 +26,7 @@ namespace App.Controllers
             return View(products);
         }
         public IActionResult MyProduction()
-        {           
+        {
             var products = Service.GetAll();
             return View(products);
         }
@@ -34,15 +36,34 @@ namespace App.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(ProductModel product)
+        public IActionResult Add(ProductViewModel productView)
         {
+            // zagadnienie to samo z ktorym jest problem:
+            // mianowicie przeslanie pliku wraz z innymi danymi z formularza
+            // https://stackoverflow.com/questions/35379309/how-to-upload-files-in-asp-net-core
             if (ModelState.IsValid)
             {
-                Service.Add(product);
-                return RedirectToAction("Index");
+                ProductModel product = Service.Add(productView);
+                // proteza zastosowana ze widok jeden po drugim sie wyswietla
+                return RedirectToAction("Add", "Image", new { id = product.Id });
             }
-            else { return View(product); }
+            else { return View(productView); }
         }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            var model = Service.GetOne(id);
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ShowOrders(int id)
+        {
+            var model = Service.GetOne(id);
+            return View(model);
+        }
+
 
         [HttpGet]
         public IActionResult Edit(int id)

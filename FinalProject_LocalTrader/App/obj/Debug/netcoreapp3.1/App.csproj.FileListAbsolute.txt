@@ -189,9 +189,14 @@ F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProje
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Home\AdminMenu.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\Index.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\AddProductToOrder.cshtml.g.cs
-F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
-F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Account\LogIn.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Product\MyProduction.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Image\Add.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\Remove.cshtml.g.cs
 F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Order\Edit.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Consumer\LogIn.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Consumer\Register.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Consumer\RegisterSuccess.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Category\Index.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Category\Add.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Product\Details.cshtml.g.cs
+F:\Coderslab.NET\07_ProjektKoncowy\Coderslab.NET_FinalProject_2020_05\FinalProject_LocalTrader\App\obj\Debug\netcoreapp3.1\Razor\Views\Product\ShowOrders.cshtml.g.cs

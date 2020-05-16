@@ -6,7 +6,7 @@
 <br />
 <p>todo: remove product</p>
 <h1>MyProducts:</h1>
-<table class="table-bordered">
+<table class="table">
     <thead>
         <tr>
             <th>Lp</th>
@@ -18,7 +18,6 @@
             <th>Active orders</th>
             <th>Show orders</th>
             <th>Remove product</th>
-            <th>Add image</th>
         </tr>
     </thead>
     <tbody>
@@ -29,14 +28,22 @@
             <tr style="background-color: white">
                 <td> @lp                                            </td>
                 <td> @product.Name                                      </td>
-                <td> @product.Category                                  </td>
+                <td>
+                    @if (@product.Category != null)
+                    {
+                        @product.Category.Name
+                    }
+                </td>
                 <td> <a href="~/Product/Details/@product.Id">Details</a></td>
                 <td> @product.Price                                     </td>
                 @{
                     decimal totalSell = 0;
                     foreach (ProductOrderModel pom in product.ProductOrder)
                     {
-                        totalSell += pom.Product.Price * pom.ProductQuantity;
+                        if (pom.Order.Status != "Open")
+                        {
+                            totalSell += pom.Product.Price * pom.ProductQuantity;
+                        }
                     }
                 }
                 <td> @totalSell                                     </td>
@@ -44,13 +51,12 @@
                     int activeOrders = 0;
                     foreach (ProductOrderModel pom in product.ProductOrder)
                     {
-                        if (pom.Order.Status == "Active") { activeOrders++; }
+                        if (pom.Order.Status != "Open") { activeOrders++; }
                     }
                 }
                 <td> @activeOrders                                   </td>
                 <td> <a href="~/Product/ShowOrders/@product.Id">Show</a> </td>
                 <td> <a href="~/Product/Remove/@product.Id">Remove</a>   </td>
-                <td> <a href="~/Image/Add/@product.Id">Add image</a> </td>
             </tr>
         }
     </tbody>

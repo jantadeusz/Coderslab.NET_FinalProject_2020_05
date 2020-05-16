@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using App.Context;
 using App.Models;
 using App.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -14,23 +15,39 @@ namespace App.Controllers
     {
         private OrderService Service { get; }
         public EFContext Context { get; }
-        public OrderController(EFContext context, OrderService service)
+        private readonly UserManager<ConsumerModel> UserManager;
+        public OrderController(
+            EFContext context,
+            OrderService service,
+            UserManager<ConsumerModel> userManager)
         {
             Context = context;
             Service = service;
+            UserManager = userManager;
         }
         public IActionResult Index()
         {
-            var orders = Service.GetAll();
-            return View(orders);
+            try
+            {
+                var consumerId = UserManager.GetUserId(User);
+                var orders = Service.GetAll(consumerId);
+                return View(orders);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View();
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            var consumer = await UserManager.GetUserAsync(User);
             OrderModel order = new OrderModel();
             order.Status = "Open";
             order.OrderStart = DateTime.Now;
+            order.Consumer = consumer;
             Context.Orders.Add(order);
             Context.SaveChanges();
             return RedirectToAction("Index");

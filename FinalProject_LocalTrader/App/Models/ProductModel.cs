@@ -18,7 +18,6 @@ namespace App.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public ICollection<ProductOrderModel> ProductOrder { get; set; }
-        public ProducerModel Producer { get; set; }
         public ImageModel Image { get; set; }
     }
 }

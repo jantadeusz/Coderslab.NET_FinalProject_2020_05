@@ -1,0 +1,38 @@
+﻿@model ProductModel
+@{
+    ViewData["Title"] = "ShowOrders";
+}
+
+<h1>ShowOrders of product: @Model.Name</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lp</th>
+            <th>Date</th>
+            <!--
+            <th>Customer</th>
+            -->
+            <th>Quantity</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int lp = 0; }
+        @foreach (ProductOrderModel po in Model.ProductOrder)
+        {
+            lp++;
+            <tr>
+                <td>@lp</td>
+                <td>@po.Order.OrderEnd</td>
+                <!--
+                <td>po.Order.Consumer.UserName</td> // wali nullem
+                -->
+                <td>@po.ProductQuantity</td>
+                <td>@po.Order.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h2> todo: wyświetlaj tylko produkty zalogowanego producenta</h2>
+<h2> todo: wyświetlaj nazwę klienta w tabeli i link do szczegółów zamówienia</h2>

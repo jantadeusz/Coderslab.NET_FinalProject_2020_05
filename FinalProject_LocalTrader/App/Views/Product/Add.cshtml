@@ -1,15 +1,29 @@
-﻿@model ProductModel
+﻿@model App.ViewModels.ProductViewModel
+@inject App.Services.CategoryService categoryService;
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "AddProduct";
 }
 
 <h1>Add</h1>
-<form asp-action="Add" method="post">
+<form asp-controller="Product" asp-action="Add" method="post">
     <div>
-        <label>Name:</label>
-        <input type="text" asp-for="Name" />
-        <p class="alert-danger"> @Html.ValidationMessageFor(model => model.Name) </p>
+        <label>Choose category:</label>
+        <select asp-for="CategoryId">
+            @{
+                foreach (CategoryModel cm in categoryService.GetAll())
+                {
+                    <option value="@cm.Id">@cm.Name</option>
+                }
+            }
+        </select>
+        <p class="alert-danger"> @Html.ValidationMessageFor(model => model.CategoryId) </p>
     </div>
+    <div>
+        <label>ProductName:</label>
+        <input type="text" asp-for="ProductName" />
+        <p class="alert-danger"> @Html.ValidationMessageFor(model => model.ProductName) </p>
+    </div>
+
     <div>
         <label>Description:</label>
         <textarea asp-for="Description"></textarea>
@@ -24,10 +38,19 @@
     <!--
     <div>
         <label>Image:</label>
-        <input asp-for="ProductImageTest" type="file" name="Image" />
-        <span asp-validation-for="ProductImageTest" class="text-danger"></span>
-        <p class="alert-danger"> Html.ValidationMessageFor(model => model.ProductImageTest) </p>
+        <input asp-for="ImageFile" type="file" name="Image" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+        <p class="alert-danger"> Html.ValidationMessageFor(model => model.ImageFile) </p>
     </div>
+    <div>
+        using (Html.BeginForm("Add", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="file" />
+            <input type="submit" name="Submit" id="Submit" value="Upload" />
+        }
+    </div>
+    <input type="submit" value="Upload" />
+    <button type="submit">Add Product</button>
     -->
-    <button>Add</button>
+    <input type="submit" value="Submit">
 </form>

@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Context;
+using App.Models;
 using App.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
 {
-
-    public class AccountController : Controller
+    public class ConsumerController : Controller
     {
-        private readonly SignInManager<IdentityUser> signInManager;
-        private readonly UserManager<IdentityUser> userManager;
-        public AccountController(
-            SignInManager<IdentityUser> _signInManager, UserManager<IdentityUser> _userManager)
+        private readonly SignInManager<ConsumerModel> signInManager;
+        private readonly UserManager<ConsumerModel> userManager;
+        private readonly EFContext Context;
+        public ConsumerController(
+            SignInManager<ConsumerModel> _signInManager,
+            UserManager<ConsumerModel> _userManager,
+            EFContext context)
         {
             signInManager = _signInManager;
             userManager = _userManager;
+            Context = context;
         }
 
         [HttpGet]
@@ -30,12 +35,26 @@ namespace App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser(registerView.Login) { Email = registerView.Email };
-                var result = await userManager.CreateAsync(user, registerView.Password);
+                var consumer = new ConsumerModel()
+                {
+                    UserName = registerView.UserName,
+                    Email = registerView.Email,
+                    BirthDate = registerView.BirthDate,
+                    DateAdded = DateTime.Now
+                };
+                var result = await userManager.CreateAsync(consumer, registerView.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
-                    //return RedirectToAction("AddUserToRoleConsument", "Role");
+                    var address = new AddressModel()
+                    {
+                        ConsumerId = consumer.Id,
+                        Latitude = registerView.Latitude,
+                        Longitude = registerView.Longitude,
+                        Elevation = registerView.Elevation
+                    };
+                    Context.Addresses.Add(address);
+                    Context.SaveChanges();
+                    return RedirectToAction("RegisterSuccess");
                 }
                 ModelState.AddModelError("", "Niepoprawne dane");
                 foreach (var error in result.Errors)
@@ -44,6 +63,11 @@ namespace App.Controllers
                 }
             }
             return View(registerView);
+        }
+
+        public IActionResult RegisterSuccess()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -66,6 +90,7 @@ namespace App.Controllers
             }
             return View(viewModel);
         }
+
         [HttpGet]
         public async Task<IActionResult> LogOut()
         {

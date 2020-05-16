@@ -1,0 +1,36 @@
+﻿@model List<CategoryModel>
+@{
+    ViewData["Title"] = "Category Index";
+}
+
+<a class="btn btn-light" asp-controller="Category" asp-action="Add">Add Category</a>
+<br />
+<h1>Categories in system:</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lp</th>
+            <th>Name</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Lp</th>
+            <th>Name</th>
+            <th>Remove</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @{int lp = 0; }
+        @foreach (CategoryModel category in Model)
+        {
+            lp++;
+            <tr style="background-color: white">
+                <td> @lp                                            </td>
+                <td> @category.Name                                      </td>
+                <td> <a href="~/Category/Remove/@category.Id">Remove</a>   </td>
+            </tr>
+        }
+    </tbody>
+</table>

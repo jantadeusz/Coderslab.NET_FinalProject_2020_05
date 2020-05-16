@@ -63,7 +63,7 @@ namespace App.Controllers
             {
                 Console.WriteLine(ex.Message);
             }
-            return View();
+            return RedirectToAction("MyProduction","Product");
         }
         /*
         [HttpPost]

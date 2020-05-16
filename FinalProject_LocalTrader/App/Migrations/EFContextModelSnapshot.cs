@@ -26,8 +26,8 @@ namespace App.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ConsumerId")
-                        .HasColumnType("int");
+                    b.Property<string>("ConsumerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Elevation")
                         .HasColumnType("decimal(18,2)");
@@ -43,9 +43,10 @@ namespace App.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ConsumerId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ConsumerId] IS NOT NULL");
 
-                    b.ToTable("AddressModel");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("App.Models.CategoryModel", b =>
@@ -60,36 +61,7 @@ namespace App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CategoryModel");
-                });
-
-            modelBuilder.Entity("App.Models.ConsumerModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nick")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ConsumerModel");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("App.Models.ImageModel", b =>
@@ -120,8 +92,8 @@ namespace App.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ConsumerId")
-                        .HasColumnType("int");
+                    b.Property<string>("ConsumerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("OrderEnd")
                         .HasColumnType("datetime2");
@@ -137,27 +109,6 @@ namespace App.Migrations
                     b.HasIndex("ConsumerId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("App.Models.ProducerModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.ToTable("ProducerModel");
                 });
 
             modelBuilder.Entity("App.Models.ProductModel", b =>
@@ -181,14 +132,9 @@ namespace App.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("ProducerId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProducerId");
 
                     b.ToTable("Products");
                 });
@@ -281,6 +227,10 @@ namespace App.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -332,6 +282,8 @@ namespace App.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -414,13 +366,27 @@ namespace App.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("App.Models.ConsumerModel", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.HasDiscriminator().HasValue("ConsumerModel");
+                });
+
             modelBuilder.Entity("App.Models.AddressModel", b =>
                 {
                     b.HasOne("App.Models.ConsumerModel", "Consumer")
                         .WithOne("Address")
-                        .HasForeignKey("App.Models.AddressModel", "ConsumerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("App.Models.AddressModel", "ConsumerId");
                 });
 
             modelBuilder.Entity("App.Models.ImageModel", b =>
@@ -439,22 +405,11 @@ namespace App.Migrations
                         .HasForeignKey("ConsumerId");
                 });
 
-            modelBuilder.Entity("App.Models.ProducerModel", b =>
-                {
-                    b.HasOne("App.Models.AddressModel", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-                });
-
             modelBuilder.Entity("App.Models.ProductModel", b =>
                 {
                     b.HasOne("App.Models.CategoryModel", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("App.Models.ProducerModel", "Producer")
                         .WithMany("Products")
-                        .HasForeignKey("ProducerId");
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("App.Models.ProductOrderModel", b =>
